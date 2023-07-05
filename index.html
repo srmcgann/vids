@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>whitehot robot videos</title>
+    <style>
+      html, body{
+        margin: 0;
+        min-height: 100vh;
+        background: #000;
+        color: #fff;
+        font-family: courier;
+      }
+      .bg{
+        width: 100vw;
+        height: 100vh;
+        opacity: .2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        background-repeat: no-repeat;
+        background-image: url(https://srmcgann.github.io/drawings/jZm6Crs.jpeg);
+        background-size: cover;
+        background-position: center center;
+        background-color: #011;
+      }
+      .main{
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow: auto;
+        max-height: calc(100vh - 200px);
+        z-index: 10;
+      }
+      video {
+        display: inline-block;
+        width: 400px;
+        margin: 20px;
+        border: 1px solid #fff3;
+      }
+      .nav{
+        background: #2448;
+        padding: 5px;
+        border-radius: 10px;
+        position: fixed;
+        z-index: 100;
+        left: 50%;
+        top: 25px;
+        min-width: 380px;
+        transform: translate(-50%);
+        text-align: center;
+      }
+      .enabledButton{
+        background: #4f88;
+        cursor: pointer;
+      }
+      .disabledButton{
+        background: #5558;
+      }
+      button:focus{
+        outline: none;
+      }
+      #vidCount{
+        color: #8ff;
+      }
+      .navButton{
+        border: 0;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 24px;
+        padding: 0;
+        width: 40px;
+        height: 25px;
+        line-height: 0;
+        padding-bottom: 5px;
+        text-align: center;
+        text-shadow: 2px 2px 2px #000;
+      }
+      .vidTile{
+        display: inline-block;
+        vertical-align: top;
+      }
+      .caption{
+        font-size: 16px;
+        margin: 10px;
+        margin-top: -20px;
+        max-width: 390px;
+        text-align: center;
+      }}
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      whitehot robot videos<br>
+      <span id="vidCount"></span>
+      <br>
+      <button title="go to first page" id="begButton"" class="navButton" disabled onclick="beg()">&larrb;</button>
+      <button title="go back 1 page" id="backButton"" class="navButton" disabled onclick="back()">&larr;</button>
+      <span style="margin: 10px;" id="pageNo"></span>
+      <button title="go forward one page" id="fwdButton" class="navButton" onclick="fwd()">&rarr;</button>
+      <button title="go to last page" id="endButton" class="navButton" onclick="end()">&rarrb;</button>
+    </div>
+    <div class="bg"></div>
+    <div class="main">
+    </div>
+    <script>
+      repo = 'temp'
+      
+      base = Array(20).fill().map((v,i)=> `https://srmcgann.github.io/vids${i}/`)
+      
+      vidsList = [
+        base[3] + "Aurora - Cure for Me (unicorn mix) [qQi7G5oyEvw].mp4",
+        base[3] + "atmosphere [voe4uRj6jXk].mp4",
+        base[3] + "bonnet [TuF5jms0c_s].mp4",
+        base[3] + "butterflies fancier [1wk74-7iRo0].mp4",
+        base[3] + "can't hurry love (Hot Jazz Biscuits cover of The Supremes) unicorn mix [pxrLo1Awawc].mp4",
+        base[3] + "deconstructed [vPihaw0OwRs].mp4",
+        base[3] + "dinner and a movie [8eXlK_4nNYk].mp4",
+        base[3] + "entity 3 [LiWuYriWue0].mp4",
+        base[3] + "ethnicities [vzoJ_FnIXwE].mp4",
+        base[3] + "flux actual [8ibcdCAZpic].mp4",
+        base[3] + "flux fancy [XgdppQ42poE].mp4",
+        base[3] + "flying hex [S-OAXxcaM7A].mp4",
+        base[3] + 'forks [idu7koS1BtI].mp4',
+        base[3] + "gogos vacation (unicorn mix) [gPA4e4karpc].mp4",
+        base[3] + "golden spiral [0o4vMVFRMks].mp4",
+        base[3] + "hip breaker 3000 [GPf9Rhnw6Ls].mp4",
+        base[3] + "immovable [qa_sZhvaQqw].mp4",
+        base[3] + "jello world [AtDTVHlhF8Y].mp4",
+        base[3] + "jumper [9-FNlIJFJ8o].mp4",
+        base[3] + "limbic [VpG6DFgRT9U].mp4",
+        base[3] + "meta shapes [kCNdzCe4pvg].mp4",
+        base[3] + "multimaze [ns2Sn0iEhOM].mp4",
+        base[3] + "natural fun [glt9jGONGe0].mp4",
+        base[3] + "october [YSqqz_3HF94].mp4",
+        base[3] + "ophelia (unicorn mix) [JgJVBpl14GI].mp4",
+        base[3] + "orbital geometry [Iw0EEAS965Y].mp4",
+        base[3] + 'pogues - love you till the end (performed by birds of a feather) (unicorn mix) [qnO9ipZm9UY].mp4',
+        base[3] + "sprites extra fancy [8CyLtYR0Cds].mp4",
+        base[3] + "starfruit [xYDvqGTfNF0].mp4",
+        base[3] + "starship excelsior [8TR0p8A9ec4].mp4",
+        base[3] + "string theory [1_xrH6tiQUs].mp4",
+        base[3] + "suzanne vega - luka (unicorn mix) [K2fOlzS_F90].mp4",
+        base[3] + "target practice [HGwHgZRVv0Q].mp4",
+        base[3] + 'tessa violet - crush (unicorn mix) [etHBEuwHn8Y].mp4',
+        base[3] + 'Tessa Violet - Tennessee - unicorn mix [ti2kx7vmTWE].mp4',
+        base[3] + "the dying swan [ia_P2kCIVwo].mp4",
+        base[3] + "the eye of the storm cycles [I-OjRMV_Fdc].mp4",
+        base[3] + "the physical world [6AT0r20NYcg].mp4",
+        base[3] + "tree of knowledge [RGmKRJbx7qw].mp4",
+        base[3] + "voronoi deluxe [81Ak8lntNBw].mp4",
+        base[3] + "wave function collapse [Hqjpo2pJyyo].mp4",
+        base[4] + "anthropology 3.0 [DHxmsVil60U].mp4", 
+        base[4] + "being driven (guitar mix) [3hDyMiMNDcU].mp4", 
+        base[4] + "billie eilish - everything i wanted (sung by rosella) (unicorn mix) [ZcdJiwwBEC0].mp4", 
+        base[4] + "bisection [rMEeRDQQuCI].mp4", 
+        base[4] + "choral [5gG5rEks7Jg].mp4", 
+        base[4] + "Chromatics - I'm on Fire (unicorn mix) [C7dFqTJroH0].mp4", 
+        base[4] + "chvrches - good girls (unicorn mix) [JdsmPvZyYCo].mp4", 
+        base[4] + "cloth actual [FbskmTHw7O0].mp4", 
+        base[4] + "eye [zdtkEZpnyKo].mp4", 
+        base[4] + "funnel cake [NiNGJ8iB81c].mp4", 
+        base[4] + "grape skittles [MQjc35p78wE].mp4", 
+        base[4] + "hex zoom [oqjyYOTfCRg].mp4", 
+        base[4] + "hip breaker [lZjqj-nnl1w].mp4", 
+        base[4] + "icona pop - i don't care i love it (unicorn mix) [c19cV2b789g].mp4", 
+        base[4] + "idea realm [sSpu6uyldYo].mp4", 
+        base[4] + "lobotomy [2ki4f9ObP58].mp4", 
+        base[4] + "madonna - lucky star (unicorn mix) [IvVOxEwWzL4].mp4", 
+        base[4] + "mazzy star - fade into you (unicorn mix) [FrbUBuZLLH4].mp4", 
+        base[4] + "microcosm [9v--Fg78MqU].mp4", 
+        base[4] + "ocean [THscO2r8f1Q].mp4", 
+        base[4] + "perspective warper [tWnayRpHgLg].mp4", 
+        base[4] + "point jumper [MeuySlf6Gro].mp4", 
+        base[4] + "sacred geometry [lEboLgg3Y3U].mp4", 
+        base[4] + "spaceflex [8WFLKn7l3YA].mp4", 
+        base[4] + "swarm [eyt5Cvfex80].mp4", 
+        base[4] + "the day the sky went wonky [w6apGGUzTq4].mp4", 
+        base[4] + "the hand of god [82a0ixTpAtE].mp4", 
+        base[4] + "the river nile [1nagfpQruYM].mp4", 
+        base[4] + "Tina Turner - Whats Love got to do with it (sung by Morgan James) (unicorn mix) [XUVia8uMFCQ].mp4", 
+        base[4] + "triple torus knot [N-QCGusuKx8].mp4", 
+        base[5] + "above ground [lQ0vpSjFIHk].mp4",
+        base[5] + "Avril Lavigne   Skater Boi unicorn mix [XWPfQP3Irmo].mp4",
+        base[5] + "Avril Lavigne - What the Hell (unicorn mix) [JFSMhTjEK-g].mp4",
+        base[5] + "awakening [8KfCWI3lBs8].mp4",
+        base[5] + "being driven [iGGmsI1GcxI].mp4",
+        base[5] + "Billie Eilish   Party Favor (unicorn mix) [FmA8TqNSDFs].mp4",
+        base[5] + "breaking formation [qejQA4RiQec].mp4",
+        base[5] + "cherubim [rPaaS_MJl9w].mp4",
+        base[5] + "cloud city [u5p98WumKfk].mp4",
+        base[5] + "colossus [gQHXazYnJ54].mp4",
+        base[5] + "Elizabeth Cotten - In the Sweet By and By (unicorn mix) [JdNFiWgoyrs].mp4",
+        base[5] + "emotional pigsty [msV4K-S-o54].mp4",
+        base[5] + "epiphany [ZgJ64yqaRc0].mp4",
+        base[5] + "flux [iBwmGUJuUFI].mp4",
+        base[5] + "geoflux [XaIfgivab1k].mp4",
+        base[5] + "Grateful Dead - Friend of the Devil (unicorn mix) [JGINJyFmL8I].mp4",
+        base[5] + "icosahedron [8a4HcYoxBWg].mp4",
+        base[5] + "madonna - borderline (unicorn mix) [MZ7ydEfXRkE].mp4",
+        base[5] + "nadir [xfsM7XMGr7k].mp4",
+        base[5] + "stephanie poetri - touch (unicorn mix) [i3Jq7c-1jeI].mp4",
+        base[5] + "subspace ripples [pjEVl1_sNZg].mp4",
+        base[5] + "sweet spot [WncHm_ORBoQ].mp4",
+        base[5] + "synthesis [-zM-YzlXZb4].mp4",
+        base[5] + "tachyon [GhmuETvIOgo].mp4",
+        base[5] + "Taylor Swift - Epiphany (unicorn mix) [4ZWByYRIULs].mp4",
+        base[5] + "Taylor Swift   Lover (unicorn mix) [OVfHZF7eqj4].mp4",
+        base[5] + "Tessa Violet - Make Me a Robot (unicorn mix) [asqIMw_cLbQ].mp4",
+        base[5] + "Tessa Violet - Not Over You (unicorn mix) [VIKJf2P_0Rs].mp4",
+        base[5] + "the inner light [J40b8asyv0U].mp4",
+        base[5] + "the kicks [7Ors5UoYaWM].mp4",
+        base[5] + "Tove Lo - Habits (unicorn mix) [4tIFdtOkhvA].mp4",
+        base[5] + "wings actual [gX67IycEY8U].mp4",
+        base[6] + "leaf devil [onjXXtPf4zM].mp4",
+        base[6] + "i was happy until you promised me happiness [d7DKN9uLLzg].mp4",
+        base[6] + "wells [_agWNcxibQs].mp4",
+        base[6] + "noname [_Ap0jbNp3gU].mp4",
+        base[6] + "rdsdna [X9QMwvWwg_o].mp4",
+        base[6] + "winter days [mTTx3SOWsIk].mp4",
+        base[6] + "argon [Y2mzYISlvWA].mp4",
+        base[6] + "streamers [5Vr6epIjj4I].mp4",
+        base[6] + "nebula [chKEojbk560].mp4",
+        base[6] + "dragonfly [rLc0zear5Ik].mp4",
+        base[6] + "the barn that time forgot [ESfDf6LYzlg].mp4",
+        base[6] + "omega [9RtUrLGiFis].mp4",
+        base[6] + "halogen [r4n0IwxhcDE].mp4",
+        base[6] + "giant oaks [3qdgP2coDu8].mp4",
+        base[6] + "streets [PyL318dL9gc].mp4",
+        base[6] + "aligning stars [b_2TFFijDVE].mp4",
+        base[6] + "darkwave [V9zi6yL-Juo].mp4",
+        base[6] + "breaking the ice [ilcjzpTTbI4].mp4",
+        base[6] + "the long path [GfSS6pBIFtk].mp4",
+        base[6] + "symbols from beyond [R37idphv72Q].mp4",
+        base[6] + "sorting hat [xLQNavT1dxU].mp4",
+        base[6] + "magnets [xltGHx4SJ5A].mp4",
+        base[6] + "when the moon was made [O_7edPvcKvw].mp4",
+        base[6] + "golden bird [6ITeSn-lwFk].mp4",
+        base[6] + "magnesium [aIGTaBT1vuA].mp4",
+        base[6] + "anthropology [T1SVBbCTf1E].mp4",
+        base[6] + "march of the cloud people [Ae5A9qFPnOE].mp4",
+        base[6] + "hexcubes [SGICZQxfN-k].mp4",
+        base[6] + "full orbit [9sRlA0vIN6g].mp4",
+        base[6] + "rebel red [djV11azxC8M].mp4",
+        base[6] + "reflecting pool [_ltdaTbEoM4].mp4",
+        base[6] + "desire paths [NtdUNsNBfQ0].mp4",
+        base[6] + "venus [k07XoWOlI4A].mp4",
+        base[6] + "retro jam [xD1UzHuqU4M].mp4",
+        base[6] + "sierpenski [caVxGWJyrKw].mp4",
+        base[6] + "flint [fcjMS_aQyAI].mp4",
+        base[6] + "angels [xXDoh4X7N28].mp4",
+        base[6] + "the eye of the storm [sSzxlp60MK4].mp4",
+        base[7] + "4th wave [w9hzaG5mQzQ].mp4",
+        base[7] + "meteorology [091Jo7KIWIw].mp4",
+        base[7] + "awakening [M0jeZkfsbg4].mp4",
+        base[7] + "phi [7c15mp3oqJY].mp4",
+        base[7] + "axle grind [wf2hlxl9r28].mp4",
+        base[7] + "progress [EvXSkoJ9IgM].mp4",
+        base[7] + "beneath the crust [Cl2t5GdeKCk].mp4",
+        base[7] + "pudding [-yCo9Jzj1G4].mp4",
+        base[7] + "blair witch [0fEr-HTlXzs].mp4",
+        base[7] + "responsive [ghrQJiWV9gs].mp4",
+        base[7] + "coras jam [aKZAVIXSEEU].mp4",
+        base[7] + "reverence [ljaH748EOho].mp4",
+        base[7] + "dark waltz [TGSEbE5CRnA].mp4",
+        base[7] + "rosemary [kfNiTrFwgnU].mp4",
+        base[7] + "dead sea [AEF4H8hw1os].mp4",
+        base[7] + "Schrödinger [2do44tm0qIA].mp4",
+        base[7] + "duality [1oWGLJSqeWw].mp4",
+        base[7] + "seraphim [KWGZgkICh7Y].mp4",
+        base[7] + "emerge [qZjs6VDMIMg].mp4",
+        base[7] + "stormy [wwuAs1FWUAk].mp4",
+        base[7] + "groove in F [Cev4eEw7BIo].mp4",
+        base[7] + "tachyon [OfBaRxeZXbg].mp4",
+        base[7] + "intact heart [LATVI6-T9BY].mp4",
+        base[7] + "the darkest green [W9mT5JZW5ng].mp4",
+        base[7] + "interstellar [MHTRMsZ6fqU].mp4",
+        base[7] + "the deepest lake [yY7hoKjvkik].mp4",
+        base[7] + "labyrinth [JLtxqO4-TzQ].mp4",
+        base[7] + "lakelife [9acS-uiBqWE].mp4",
+        base[7] + "wings [bQbiizKv_Y8].mp4",
+        base[8] + "antispace [jgqwNlJCo4Q].mp4",
+        base[8] + "Ariana Grande and Nicki Minaj - Side to Side (unicorn mix) [hUfhazqgsRI].mp4",
+        base[8] + "Aurora - Exist for Love (unicorn mix) [ojDJfDstrBQ].mp4",
+        base[8] + "Daya - Hide Away (unicorn mix) [yffh0zIrH7Q].mp4",
+        base[8] + "dua lipa - break my heart (unicorn mix) [hFLBTH3nHpc].mp4",
+        base[8] + "elves [vDgXlx5QB0U].mp4",
+        base[8] + "funnel pie [HuipBLsURtU].mp4",
+        base[8] + "greece [y8rta9ZlDQY].mp4",
+        base[8] + "heavenly conduit [ifDQ7t-HJ_8].mp4",
+        base[8] + "heterochromia [2PMQDpy9l14].mp4",
+        base[8] + "lattice [5IiGJ4p1JZA].mp4",
+        base[8] + "Miami Nights new [qxIDvIwRsos].mp4",
+        base[8] + "Princess Chelsea - Overseas ⧸⧸ THEY SHOOT MUSIC (unicorn mix) [1CAsOpa_6xM].mp4",
+        base[8] + "☺ [R5XrfF6k7l4].mp4",
+        base[8] + "revival [z41bOSvepLo].mp4",
+        base[8] + "skeletons on parade [QktWaAhxRNQ].mp4",
+        base[8] + "when the moon was made (reworked animation) [qxeKfWiDS8A].mp4",
+      ]
+      
+      vidsPerPage = 8
+      totalPages = (vidsList.length/vidsPerPage|0)
+      document.querySelector('#vidCount').innerHTML = 'total videos: ' + vidsList.length
+      
+      
+      back = () => {
+        window.location.href = location.origin + `/${repo}/?page=${page-1}`
+      }
+      fwd = () => {
+        window.location.href = location.origin + `/${repo}/?page=${page+1}`
+      }
+      beg = () => {
+        window.location.href = location.origin + `/${repo}/?page=${1}`
+      }
+      end = () => {
+        window.location.href = location.origin + `/${repo}/?page=${totalPages}`
+      }
+      if(location.href.indexOf('page=') == -1){
+         location.href = location.origin + `/${repo}/?page=1`
+      }
+      page = +location.href.split('?')[1].split('page=')[1].split('&')[0]
+      document.querySelector('#pageNo').innerHTML = `page: ${page} of ${totalPages}`
+      console.log(`page: ${page}`)
+      if(page>1){
+        document.querySelector('#backButton').disabled = false
+        document.querySelector('#begButton').disabled = false
+        document.querySelector('#backButton').className = 'navButton enabledButton'
+        document.querySelector('#begButton').className = 'navButton enabledButton'
+      } else {
+        document.querySelector('#begButton').className = 'navButton disabledButton'
+        document.querySelector('#backButton').className = 'navButton disabledButton'
+      }
+      if(page>=totalPages){
+        document.querySelector('#fwdButton').disabled = true
+        document.querySelector('#fwdButton').className = 'navButton disabledButton'
+        document.querySelector('#endButton').disabled = true
+        document.querySelector('#endButton').className = 'navButton disabledButton'
+      } else {
+        document.querySelector('#fwdButton').className = 'navButton enabledButton'
+        document.querySelector('#endButton').className = 'navButton enabledButton'
+      }
+      
+      let main = document.querySelectorAll('.main')[0]
+      vidsList.map((v,i)=>{
+        if(i>=(page-1)*vidsPerPage && i<(page*vidsPerPage)){
+          let container = document.createElement('div')
+          container.className = 'vidTile'
+          let vid = document.createElement('video')
+          vid.loop = true
+          vid.controls = true
+          vid.className = 'video'
+          vid.src = v
+          let caption = document.createElement('div')
+          caption.className = 'caption'
+          let capText = v.split('/')
+          caption.innerHTML = capText[capText.length-1]
+          container.appendChild(vid)
+          container.appendChild(caption)
+          main.appendChild(container)
+        }
+      })
+    </script>
+  </body>
+</html>
