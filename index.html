@@ -282,21 +282,21 @@
         base[7] + "labyrinth [JLtxqO4-TzQ].mp4",
         base[7] + "lakelife [9acS-uiBqWE].mp4",
         base[7] + "wings [bQbiizKv_Y8].mp4",
-        base[8] + "antispace [jgqwNlJCo4Q].mp4",
-        base[8] + "Ariana Grande and Nicki Minaj - Side to Side (unicorn mix) [hUfhazqgsRI].mp4",
+        base[8] + "antispace [jgqwNlJCo4Q]_downgraded.mp4",
+        base[8] + "Ariana Grande and Nicki Minaj - Side to Side (unicorn mix) [hUfhazqgsRI]_downgraded.mp4",
         base[8] + "Aurora - Exist for Love (unicorn mix) [ojDJfDstrBQ].mp4",
         base[8] + "Daya - Hide Away (unicorn mix) [yffh0zIrH7Q].mp4",
         base[8] + "dua lipa - break my heart (unicorn mix) [hFLBTH3nHpc].mp4",
         base[8] + "elves [vDgXlx5QB0U].mp4",
         base[8] + "funnel pie [HuipBLsURtU].mp4",
         base[8] + "greece [y8rta9ZlDQY].mp4",
-        base[8] + "heavenly conduit [ifDQ7t-HJ_8].mp4",
-        base[8] + "heterochromia [2PMQDpy9l14].mp4",
+        base[8] + "heavenly conduit [ifDQ7t-HJ_8]_downgraded.mp4",
+        base[8] + "heterochromia [2PMQDpy9l14]_downgraded.mp4",
         base[8] + "lattice [5IiGJ4p1JZA].mp4",
         base[8] + "Miami Nights new [qxIDvIwRsos].mp4",
         base[8] + "Princess Chelsea - Overseas ⧸⧸ THEY SHOOT MUSIC (unicorn mix) [1CAsOpa_6xM].mp4",
         base[8] + "☺ [R5XrfF6k7l4].mp4",
-        base[8] + "revival [z41bOSvepLo].mp4",
+        base[8] + "revival [z41bOSvepLo]_downgraded.mp4",
         base[8] + "skeletons on parade [QktWaAhxRNQ].mp4",
         base[8] + "when the moon was made (reworked animation) [qxeKfWiDS8A].mp4",
       ]
@@ -307,19 +307,19 @@
       
       
       back = () => {
-        window.location.href = location.origin + `/${repo}/index.html?page=${page-1}`
+        window.location.href = location.origin + `/${repo}/?page=${page-1}`
       }
       fwd = () => {
-        window.location.href = location.origin + `/${repo}/index.html?page=${page+1}`
+        window.location.href = location.origin + `/${repo}/?page=${page+1}`
       }
       beg = () => {
-        window.location.href = location.origin + `/${repo}/index.html?page=${1}`
+        window.location.href = location.origin + `/${repo}/?page=${1}`
       }
       end = () => {
-        window.location.href = location.origin + `/${repo}/index.html?page=${totalPages}`
+        window.location.href = location.origin + `/${repo}/?page=${totalPages}`
       }
       if(location.href.indexOf('page=') == -1){
-         location.href = location.origin + `/${repo}/index.html?page=1`
+         location.href = location.origin + `/${repo}/?page=1`
       }
       page = +location.href.split('?')[1].split('page=')[1].split('&')[0]
       document.querySelector('#pageNo').innerHTML = `page: ${page} of ${totalPages}`
