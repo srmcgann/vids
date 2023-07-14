@@ -108,7 +108,7 @@
     <div class="main">
     </div>
     <script>
-      repo = 'vids'
+      repo = ''
       
       base = Array(20).fill().map((v,i)=> `https://srmcgann.github.io/vids${i}/`)
       
@@ -308,19 +308,19 @@
       
       
       back = () => {
-        window.location.href = location.origin + `/${repo}/?page=${page-1}`
+        window.location.href = location.origin + `/${repo}?page=${page-1}`
       }
       fwd = () => {
-        window.location.href = location.origin + `/${repo}/?page=${page+1}`
+        window.location.href = location.origin + `/${repo}?page=${page+1}`
       }
       beg = () => {
-        window.location.href = location.origin + `/${repo}/?page=${1}`
+        window.location.href = location.origin + `/${repo}?page=${1}`
       }
       end = () => {
-        window.location.href = location.origin + `/${repo}/?page=${totalPages}`
+        window.location.href = location.origin + `/${repo}?page=${totalPages}`
       }
       if(location.href.indexOf('page=') == -1){
-         location.href = location.origin + `/${repo}/?page=1`
+         location.href = location.origin + `/${repo}?page=1`
       }
       page = +location.href.split('?')[1].split('page=')[1].split('&')[0]
       document.querySelector('#pageNo').innerHTML = `page: ${page} of ${totalPages}`
