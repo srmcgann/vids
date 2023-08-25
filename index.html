@@ -89,7 +89,7 @@
         margin: 10px;
         margin-top: -20px;
         text-align: center;
-        color: #8fac;
+        color: #8fac!important;
         cursor: pointer;
         background: #143c;
         border: 1px solid #0f83;
@@ -365,7 +365,7 @@
           caption.className = 'caption'
           let capText = v.split('/')
           capText = capText[capText.length-1].replace('[','%5B').replace(']','%5D')
-          caption.innerHTML = `<a href="${v}" target="_blank" class="vidCaptionLink">${capText}</a>`
+          caption.innerHTML = `<a href="${v}" target="_blank">${capText}</a>`
           container.appendChild(vid)
           container.appendChild(caption)
           main.appendChild(container)
