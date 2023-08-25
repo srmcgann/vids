@@ -88,8 +88,15 @@
         font-size: 16px;
         margin: 10px;
         margin-top: -20px;
-        max-width: 390px;
         text-align: center;
+        color: #8fac;
+        cursor: pointer;
+        background: #143c;
+        border: 1px solid #0f83;
+        margin-left: 20px;
+        width: 440px;
+        border-radius: 20px;
+        text-decoration: none;
       }}
     </style>
   </head>
@@ -357,7 +364,8 @@
           let caption = document.createElement('div')
           caption.className = 'caption'
           let capText = v.split('/')
-          caption.innerHTML = capText[capText.length-1]
+          capText = capText[capText.length-1].replace('[','%5B').replace(']','%5D')
+          caption.innerHTML = `<a href="${v}" target="_blank" class="vidCaptionLink">${capText}</a>`
           container.appendChild(vid)
           container.appendChild(caption)
           main.appendChild(container)
