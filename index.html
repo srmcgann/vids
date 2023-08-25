@@ -96,6 +96,8 @@
         margin-left: 20px;
         width: 440px;
         border-radius: 20px;
+        display: block;
+        padding: 2px;
         text-decoration: none;
       }}
     </style>
@@ -363,8 +365,9 @@
           vid.src = v
           let caption = document.createElement('div')
           let capText = v.split('/')
-          capText = capText[capText.length-1].replace('[','%5B').replace(']','%5D')
-          caption.innerHTML = `<a class="caption" href="${v}" target="_blank">${capText}</a>`
+          let capo = capText[capText.length-1]
+          capText = capo.replace('[','%5B').replace(']','%5D')
+          caption.innerHTML = `<a class="caption" href="${v}" target="_blank">${capo}</a>`
           container.appendChild(vid)
           container.appendChild(caption)
           main.appendChild(container)
