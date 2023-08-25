@@ -362,10 +362,9 @@
           vid.className = 'video'
           vid.src = v
           let caption = document.createElement('div')
-          caption.className = 'caption'
           let capText = v.split('/')
           capText = capText[capText.length-1].replace('[','%5B').replace(']','%5D')
-          caption.innerHTML = `<a href="${v}" target="_blank">${capText}</a>`
+          caption.innerHTML = `<a class="caption" href="${v}" target="_blank">${capText}</a>`
           container.appendChild(vid)
           container.appendChild(caption)
           main.appendChild(container)
