@@ -366,8 +366,7 @@
           let caption = document.createElement('div')
           let capText = v.split('/')
           let capo = capText[capText.length-1]
-          capText = capo.replace('[','%5B').replace(']','%5D')
-          caption.innerHTML = `<a class="caption" href="${capo}" target="_blank">${capText}</a>`
+          caption.innerHTML = `<a class="caption" href="${v.replace('[','%5B').replace(']','%5D')}" target="_blank">${capo}</a>`
           container.appendChild(vid)
           container.appendChild(caption)
           main.appendChild(container)
